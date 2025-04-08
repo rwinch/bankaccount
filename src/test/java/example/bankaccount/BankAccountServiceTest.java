@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BankAccountServiceTest {
-	BankAccountService accounts = new BankAccountService();
+	BankAccountService accounts = new SecureBankAccountService();
 
 	@Test
 	void findByIdWhenGranted() {

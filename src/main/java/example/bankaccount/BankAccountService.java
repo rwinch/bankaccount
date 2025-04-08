@@ -7,10 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class BankAccountService {
 	public BankAccount findById(int id) {
 		BankAccount account = new BankAccount(id, "rob", "12345", 543.21);
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!authentication.getName().equals(account.getOwner())) {
-			throw new AuthorizationDeniedException("Denied");
-		}
+
 		return account;
 	}
 }
