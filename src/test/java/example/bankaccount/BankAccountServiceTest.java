@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.authorization.AuthorizationProxyFactory;
+import org.springframework.security.authorization.method.AuthorizationAdvisorProxyFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -12,7 +14,9 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class BankAccountServiceTest {
-	BankAccountService accounts = new SecureBankAccountService(new BankAccountServiceImpl());
+	AuthorizationProxyFactory factory = AuthorizationAdvisorProxyFactory.withDefaults();
+
+	BankAccountService accounts = (BankAccountService) factory.proxy(new BankAccountServiceImpl());
 
 	@Test
 	void findByIdWhenGranted() {
