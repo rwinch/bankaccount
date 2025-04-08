@@ -1,15 +1,11 @@
 package example.bankaccount;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.authorization.AuthorizationDeniedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -19,26 +15,16 @@ class BankAccountServiceTest {
 	BankAccountService accounts;
 
 	@Test
+	@WithMockUser("rob")
 	void findByIdWhenGranted() {
-		login("rob");
 		this.accounts.findById(1);
 	}
 
 	@Test
+	@WithMockUser("josh")
 	void findByIdWhenDenied() {
-		login("josh");
 		assertThatExceptionOfType(AuthorizationDeniedException.class)
 			.isThrownBy(() -> this.accounts.findById(1));
-	}
-
-	void login(String user) {
-		Authentication auth = new TestingAuthenticationToken(user, "password", "ROLE_USER");
-		SecurityContextHolder.setContext(new SecurityContextImpl(auth));
-	}
-
-	@AfterEach
-	void logout() {
-		SecurityContextHolder.clearContext();
 	}
 
 }
