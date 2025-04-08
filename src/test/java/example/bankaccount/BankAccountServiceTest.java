@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringBootTest
@@ -58,16 +59,14 @@ class BankAccountServiceTest {
 	@WithMockAccountant
 	void findByIdAccountNumberWhenAccountant() {
 		BankAccount account = this.accounts.findById(1);
-		assertThatExceptionOfType(AuthorizationDeniedException.class)
-			.isThrownBy(() -> account.getAccountNumber());
+		assertThat(account.getAccountNumber()).isNull();
 	}
 
 	@Test
 	@WithMockAccountant
 	void findByOwnerAccountNumberWhenAccountant() {
 		BankAccount account = this.accounts.findByOwner("rob");
-		assertThatExceptionOfType(AuthorizationDeniedException.class)
-			.isThrownBy(() -> account.getAccountNumber());
+		assertThat(account.getAccountNumber()).isNull();
 	}
 
 
