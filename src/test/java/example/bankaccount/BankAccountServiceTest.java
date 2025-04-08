@@ -15,13 +15,13 @@ class BankAccountServiceTest {
 	BankAccountService accounts;
 
 	@Test
-	@WithMockUser("rob")
+	@WithMockRob
 	void findByIdWhenGranted() {
 		this.accounts.findById(1);
 	}
 
 	@Test
-	@WithMockUser("josh")
+	@WithMockJosh
 	void findByIdWhenDenied() {
 		assertThatExceptionOfType(AuthorizationDeniedException.class)
 			.isThrownBy(() -> this.accounts.findById(1));
@@ -29,13 +29,13 @@ class BankAccountServiceTest {
 
 
 	@Test
-	@WithMockUser("rob")
+	@WithMockRob
 	void findByOwnerWhenGranted() {
 		this.accounts.findByOwner("rob");
 	}
 
 	@Test
-	@WithMockUser("josh")
+	@WithMockJosh
 	void findByOwnerWhenDenied() {
 		assertThatExceptionOfType(AuthorizationDeniedException.class)
 				.isThrownBy(() -> this.accounts.findByOwner("rob"));
