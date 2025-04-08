@@ -62,12 +62,28 @@ class BankAccountServiceTest {
 			.isThrownBy(() -> account.getAccountNumber());
 	}
 
-
 	@Test
 	@WithMockAccountant
 	void findByOwnerAccountNumberWhenAccountant() {
 		BankAccount account = this.accounts.findByOwner("rob");
 		assertThatExceptionOfType(AuthorizationDeniedException.class)
 			.isThrownBy(() -> account.getAccountNumber());
+	}
+
+
+	@Test
+	@WithMockRob
+	void saveWhenGranted() {
+		BankAccount account = new BankAccount(1, "rob", "12345", 543.21);
+		this.accounts.save(account);
+	}
+
+
+	@Test
+	@WithMockJosh
+	void saveWhenDenied() {
+		BankAccount account = new BankAccount(1, "rob", "12345", 543.21);
+		assertThatExceptionOfType(AuthorizationDeniedException.class)
+			.isThrownBy(() -> this.accounts.save(account));
 	}
 }

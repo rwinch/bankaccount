@@ -1,5 +1,7 @@
 package example.bankaccount;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 public interface BankAccountService {
 
 	@PostReadBankAccount
@@ -9,4 +11,7 @@ public interface BankAccountService {
 	default BankAccount findByOwner(String owner) {
 		return new BankAccount(1, owner, "12345", 543.21);
 	}
+
+	@PreAuthorize("#account?.owner == authentication?.name")
+	default void save(BankAccount account) {}
 }
