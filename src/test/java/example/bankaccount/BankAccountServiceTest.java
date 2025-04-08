@@ -10,10 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BankAccountServiceTest {
-	BankAccountService accounts = new SecureBankAccountService();
+	BankAccountService accounts = new SecureBankAccountService(new BankAccountServiceImpl());
 
 	@Test
 	void findByIdWhenGranted() {
