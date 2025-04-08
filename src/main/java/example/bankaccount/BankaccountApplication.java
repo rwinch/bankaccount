@@ -29,7 +29,7 @@ public class BankaccountApplication {
 		UserDetails accountant = User.withDefaultPasswordEncoder()
 				.username("accountant")
 				.password("password")
-				.roles("USER")
+				.roles("USER", "ACCOUNTANT")
 				.build();
 		return new InMemoryUserDetailsManager(rob, josh, accountant);
 	}
