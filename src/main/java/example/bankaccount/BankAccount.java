@@ -1,7 +1,5 @@
 package example.bankaccount;
 
-import org.springframework.security.access.prepost.PreAuthorize;
-
 public class BankAccount {
 	final int id;
 	final String owner;
@@ -23,7 +21,7 @@ public class BankAccount {
 		return owner;
 	}
 
-	@PreAuthorize("this.owner == authentication?.name")
+	@PreAuthorizeOwner(account = "this")
 	public String getAccountNumber() {
 		return accountNumber;
 	}
