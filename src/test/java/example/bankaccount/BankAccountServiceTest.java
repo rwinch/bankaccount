@@ -3,20 +3,20 @@ package example.bankaccount;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.authorization.AuthorizationDeniedException;
-import org.springframework.security.authorization.AuthorizationProxyFactory;
-import org.springframework.security.authorization.method.AuthorizationAdvisorProxyFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@SpringBootTest
 class BankAccountServiceTest {
-	AuthorizationProxyFactory factory = AuthorizationAdvisorProxyFactory.withDefaults();
-
-	BankAccountService accounts = (BankAccountService) factory.proxy(new BankAccountServiceImpl());
+	@Autowired
+	BankAccountService accounts;
 
 	@Test
 	void findByIdWhenGranted() {
