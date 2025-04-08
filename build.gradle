@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.webauthn4j:webauthn4j-core:0.28.6.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

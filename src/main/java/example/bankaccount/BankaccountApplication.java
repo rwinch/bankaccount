@@ -31,6 +31,11 @@ public class BankaccountApplication {
 					response.getWriter().write("You have console mail!");
 					System.out.println("Log in http://localhost:8080/login/ott?token=" + oneTimeToken.getTokenValue());
 				})
+			)
+			.webAuthn(passkeys -> passkeys
+				.rpName("Hello Spring Security!")
+				.rpId("localhost")
+				.allowedOrigins("http://localhost:8080")
 			);
 		return http.build();
 	}
